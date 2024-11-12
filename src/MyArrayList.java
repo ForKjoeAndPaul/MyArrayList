@@ -1,51 +1,58 @@
+import java.util.Arrays;
 
 public class MyArrayList<E> {
 
     private static final int DEFAULT_CAPACITY = 5;
 
-    public Object[] elementData;
+    public Object[] getElementData() {
+        return elementData;
+    }
+
+    private Object[] elementData;
+
+    public int getSize() {
+        return size;
+    }
 
     private int size;
 
     public MyArrayList() {
-       this.elementData = new Object[DEFAULT_CAPACITY];
+        this.elementData = new Object[DEFAULT_CAPACITY];
     }
 
     public MyArrayList(int initialCapacity) {
-        if (initialCapacity >= 0){
+        if (initialCapacity >= 0) {
             this.elementData = new Object[initialCapacity];
-        }
-        else throw new IllegalStateException("Размер списка не может меньше 0");
+        } else throw new IllegalStateException("Размер списка не может быть меньше 0");
     }
 
-    public Object get(int index){
+    public Object get(int index) {
         rangeCheck(index);
         return elementData[index];
     }
 
-    private Object[] increaseCapacity(){
+    private Object[] increaseCapacity() {
         Object[] elementData = new Object[this.elementData.length * 2];
         System.arraycopy(this.elementData, 0, elementData, 0, this.elementData.length);
         return elementData;
     }
 
-    public boolean add(E element){
+    public void add(E element) {
         increaseCapacityForAdd();
         elementData[size] = element;
         size++;
-        return true;
     }
 
-    public void addByIndex(int index, E element){
+    public void addByIndex(int index, E element) {
         rangeCheck(index);
         increaseCapacityForAdd();
-        System.arraycopy(elementData, index , elementData, index + 1, size - index);
+        System.arraycopy(elementData, index, elementData, index + 1, size - index);
         elementData[index] = element;
         size++;
     }
 
-    private void increaseCapacityForAdd(){
-        if (elementData.length == size){
+    private void increaseCapacityForAdd() {
+        if (elementData.length == size) {
             elementData = increaseCapacity();
         }
     }
@@ -55,8 +62,7 @@ public class MyArrayList<E> {
             throw new IndexOutOfBoundsException();
     }
 
-
-    public Object remove(int index){
+    public Object remove(int index) {
         rangeCheck(index);
         Object[] elementData = this.elementData;
         this.elementData = new Object[elementData.length - 1];
@@ -65,5 +71,10 @@ public class MyArrayList<E> {
         System.arraycopy(elementData, index + 1, this.elementData, index, elementData.length - index - 1); //копируем правую часть массива после указанного индекса
         size--;
         return element;
+    }
+
+    public void clear() {
+        Arrays.fill(elementData, null);
+        size = 0;
     }
 }
