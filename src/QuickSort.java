@@ -1,17 +1,18 @@
 public class QuickSort {
 
     /**
-     * Статический метод сортировки, принимает на вход обхект класса MyArrayList, элементы которого имплементируют класс Comparable.
+     * Static method for sort elements
+     * @param list - object of class "MyArrayList", elements of which implements Comparable interface
      */
-
     public static void sort(MyArrayList<? extends Comparable> list) {
         quickSort(0, list.getSize() - 1, list);
     }
 
     /**
-     * Реализация QuickSort
-     * @param low        - нижняя граница массива
-     * @param high       - верхняя граница массива
+     * Realisation of QuickSort
+     *
+     * @param low        - bound of array
+     * @param high       - bound of array
      */
     private static void quickSort(int low, int high, MyArrayList<? extends Comparable> list) {
         Object[] elementData = list.getElementData();
